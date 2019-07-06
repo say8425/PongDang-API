@@ -1,0 +1,41 @@
+AllCops:
+  Exclude:
+    - Rakefile
+    - config.ru
+    - db/schema.rb
+    - bin/*
+require: rubocop-performance
+Metrics/LineLength:
+  Max: 120
+Documentation:
+  Enabled: false
+# The guiding principle of classes is SRP, SRP can't be accurately measured by LoC
+Metrics/ClassLength:
+  Max: 1500
+  Exclude:
+    - db/migrate/*.rb
+# Too short methods lead to extraction of single-use methods, which can make
+# the code easier to read (by naming things), but can also clutter the class
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - db/migrate/*.rb
+# Bootstrap config block is too loooooong.
+# Environment and application config are essentially long.
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/*
+    - config/application.rb
+Style/CommentAnnotation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Exclude:
+    - test/test_helper.rb
+# We do not need to support Ruby 1.9, so this is good to use.
+Style/SymbolArray:
+  Enabled: true
+Style/AsciiComments:
+  Enabled: false
+# Freeze is so earlier thing
+Style/FrozenStringLiteralComment:
+  Enabled: false
