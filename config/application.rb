@@ -48,11 +48,7 @@ Jets.application.configure do
   # config.api.authorization_type = "AWS_IAM" # default is 'NONE' https://amzn.to/2qZ7zLh
 
   # More info: http://rubyonjets.com/docs/routing/custom-domain/
-  # config.domain.hosted_zone_name = "example.com"
-  # us-west-2 REGIONAL endpoint - takes 2 minutes
-  # config.domain.cert_arn = "arn:aws:acm:us-west-2:112233445566:certificate/8d8919ce-a710-4050-976b-b33da991e123"
-  # us-east-1 EDGE endpoint - takes 10-15 minutes
-  # config.domain.cert_arn = "arn:aws:acm:us-east-1:112233445566:certificate/d68472ba-04f8-45ba-b9db-14f839d57123"
+  config.domain.name = 'api.pongdang.be'
   config.domain.hosted_zone_name = 'pongdang.be'
   config.domain.cert_arn = ENV['ROUTE53_CERT_ARN']
   # config.domain.endpoint_type = "EDGE"
