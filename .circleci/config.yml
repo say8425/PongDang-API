@@ -1,0 +1,102 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+defaults: &defaults
+  working_directory: ~/PongDang-API
+  docker:
+    - image: circleci/ruby:2.5.3
+      environment:
+        RAILS_ENV: test
+version: 2
+jobs:
+  checkout code:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: PongDang-{{ .Environment.CIRCLE_SHA1 }}
+      - checkout
+      - save_cache:
+          key: PongDang-{{ .Environment.CIRCLE_SHA1 }}
+          paths: ~/PongDang-API
+  bundle dependencies:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: PongDang-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          key: PongDang-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Install dependencies
+          command: bundle install --jobs=10 --retry=3 --path vendor/bundle
+      - save_cache:
+          key: PongDang-{{ checksum "Gemfile.lock" }}
+          paths: vendor/bundle
+      - persist_to_workspace:
+          root: .
+          paths: vendor/bundle
+  test:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: PongDang-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          key: PongDang-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Use packages
+          command: bundle --path vendor/bundle
+      - run:
+          name: Run tests
+          command: DISABLE_SPRING=true rspec
+          when: always
+      - store_test_results:
+          path: test/reports
+      - store_artifacts:
+          path: test/reports
+          destination: test-reports
+  rubocop:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: PongDang-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          key: PongDang-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Use packages
+          command: bundle --path vendor/bundle
+      - run:
+          name: Rubocop analyze code
+          command: rubocop
+  deploy:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: PongDang-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          key: PongDang-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Use packages
+          command: bundle --path vendor/bundle
+      - run:
+          command: jets deploy production
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - checkout code
+      - bundle dependencies:
+          requires:
+            - checkout code
+      - test:
+          requires:
+            - bundle dependencies
+      - rubocop:
+          requires:
+            - bundle dependencies
+       - deploy:
+           requires:
+             - test
+             - rubocop
+           filters:
+             branches:
+               only: master
