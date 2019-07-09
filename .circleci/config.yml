@@ -93,10 +93,10 @@ workflows:
       - rubocop:
           requires:
             - bundle dependencies
-       - deploy:
-           requires:
-             - test
-             - rubocop
-           filters:
-             branches:
-               only: master
+      - deploy:
+          requires:
+            - test
+            - rubocop
+          filters:
+            branches:
+              only: master
