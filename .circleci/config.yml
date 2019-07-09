@@ -83,6 +83,11 @@ jobs:
           name: Use packages
           command: bundle --path vendor/bundle
       - run:
+          name: Add AWS Profile
+          command:
+            - mkdir ~/.aws
+            - echo -e "[default]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY\n" > ~/.aws/credentials
+      - run:
           name: Deploy
           command: jets deploy production
 workflows:
