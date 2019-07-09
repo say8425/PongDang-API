@@ -83,6 +83,7 @@ jobs:
           name: Use packages
           command: bundle --path vendor/bundle
       - run:
+          name: Deploy
           command: jets deploy production
 workflows:
   version: 2
