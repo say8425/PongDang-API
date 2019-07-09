@@ -13,6 +13,7 @@ group :development, :test do
   gem 'rack'
   gem 'rubocop'
   gem 'rubocop-performance'
+  gem 'rubocop-rspec'
   gem 'shotgun'
 end
 

@@ -4,7 +4,9 @@ AllCops:
     - config.ru
     - db/schema.rb
     - bin/*
-require: rubocop-performance
+require:
+  - rubocop-performance
+  - rubocop-rspec
 Metrics/LineLength:
   Max: 120
 Documentation:
