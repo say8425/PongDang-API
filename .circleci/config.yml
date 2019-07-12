@@ -8,7 +8,6 @@ defaults: &defaults
     - image: circleci/ruby:2.5.3
       environment:
         RAILS_ENV: test
-        BUNDLER_VERSION: 2.0.1
 version: 2
 jobs:
   checkout code:
@@ -49,6 +48,11 @@ jobs:
       - restore_cache:
           key: PongDang-{{ checksum "Gemfile.lock" }}
       - run:
+          name: Install latest gem system and bundler
+          command: |
+            gem update --system
+            gem install bundler
+      - run:
           name: Use packages
           command: bundle --path vendor/bundle
       - run:
@@ -68,6 +72,11 @@ jobs:
       - restore_cache:
           key: PongDang-{{ checksum "Gemfile.lock" }}
       - run:
+          name: Install latest gem system and bundler
+          command: |
+            gem update --system
+            gem install bundler
+      - run:
           name: Use packages
           command: bundle --path vendor/bundle
       - run:
@@ -80,6 +89,11 @@ jobs:
           key: PongDang-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
           key: PongDang-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Install latest gem system and bundler
+          command: |
+            gem update --system
+            gem install bundler          
       - run:
           name: Use packages
           command: bundle --path vendor/bundle
