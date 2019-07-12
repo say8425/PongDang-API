@@ -8,6 +8,7 @@ defaults: &defaults
     - image: circleci/ruby:2.5.3
       environment:
         RAILS_ENV: test
+        BUNDLER_VERSION: 2.0.1
 version: 2
 jobs:
   checkout code:
