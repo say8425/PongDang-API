@@ -41,3 +41,8 @@ Style/AsciiComments:
 # Freeze is so earlier thing
 Style/FrozenStringLiteralComment:
   Enabled: false
+# Fix Rainbow Gem
+# https://github.com/rubocop-hq/rubocop/issues/6398#issuecomment-431901995
+inherit_mode:
+  merge:
+    - Exclude
