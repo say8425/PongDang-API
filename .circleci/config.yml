@@ -98,6 +98,9 @@ jobs:
           name: Use packages
           command: bundle --path vendor/bundle
       - run:
+          name: Bundle install again
+          command: bundle install --without system_tests --path=${BUNDLE_PATH:-vendor/bundle} --jobs=10 --retry=3
+      - run:
           name: Add AWS Profile
           command: |
             mkdir ~/.aws
