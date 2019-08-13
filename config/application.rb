@@ -48,9 +48,9 @@ Jets.application.configure do
   # config.api.authorization_type = "AWS_IAM" # default is 'NONE' https://amzn.to/2qZ7zLh
 
   # More info: http://rubyonjets.com/docs/routing/custom-domain/
-  config.domain.name = 'api.pongdang.be'
-  config.domain.hosted_zone_name = 'pongdang.be'
-  config.domain.cert_arn = ENV['ROUTE53_CERT_ARN']
+  # config.domain.name = 'api.pongdang.be'
+  # config.domain.hosted_zone_name = 'pongdang.be'
+  # config.domain.cert_arn = ENV['ROUTE53_CERT_ARN']
   # config.domain.endpoint_type = "EDGE"
 
   # By default logger needs to log to $stderr for CloudWatch to receive Lambda messages, but for
