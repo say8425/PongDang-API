@@ -57,4 +57,10 @@ Jets.application.configure do
   # testing suite output readable.
   # config.logger = Jets::Logger.new($strerr)
   config.controllers.default_protect_from_forgery = false
+
+  # Redis settings
+  config.redis = Redis.new(host: ENV['REDIS_HOST'],
+                           port: ENV['REDIS_PORT'],
+                           db: ENV['REDIS_DB'],
+                           password: ENV['REDIS_PSWD'])
 end
