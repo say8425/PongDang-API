@@ -17,11 +17,13 @@ class Degree
   end
 
   def self.latest
-    Redis.new.sort('degrees',
-                   get: %w(degree:*->measured_at degree:*->temperature),
-                   by: 'degree:*->measured_on',
-                   limit: [0, 1],
-                   order: 'desc')[0]
+    degree = Redis.new.sort('degrees',
+                            get: %w(degree:*->measured_at degree:*->temperature),
+                            by: 'degree:*->measured_on',
+                            limit: [0, 1],
+                            order: 'desc')[0]
+    { measured_at: degree[0],
+      temperature: degree[1] }
   end
 
   private
