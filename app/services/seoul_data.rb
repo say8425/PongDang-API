@@ -7,7 +7,7 @@ class SeoulData
     response_body = JSON.parse(response.body)['WPOSInformationTime']['row']
     data = response_body.find { |key| key['SITE_ID'] == '노량진' }
 
-    { degree: data['W_TEMP'].to_f,
+    { temperature: data['W_TEMP'].to_f,
       measured_at: Time.parse("#{data['MSR_DATE']} #{data['MSR_TIME']} +09:00") }
   end
 end
