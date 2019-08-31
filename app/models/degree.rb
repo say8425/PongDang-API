@@ -1,5 +1,5 @@
 class Degree
-  def initialize(temperature, measured_time = current_measured_time)
+  def initialize(temperature, measured_time)
     @redis = Redis.new
     @temperature = temperature
     @measured_time = measured_time
@@ -24,11 +24,5 @@ class Degree
                             order: 'desc')[0]
     { measured_at: degree[0],
       temperature: degree[1] }
-  end
-
-  private
-
-  def current_measured_time
-    Time.current.beginning_of_hour
   end
 end
