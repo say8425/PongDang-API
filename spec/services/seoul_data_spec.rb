@@ -8,7 +8,7 @@ describe SeoulData do
 
     context 'when han_river_degree succeeds' do
       it 'get degree' do
-        expect(han_river_degree).to have_key(:degree)
+        expect(han_river_degree).to have_key(:temperature)
       end
 
       it 'get measured_at' do
