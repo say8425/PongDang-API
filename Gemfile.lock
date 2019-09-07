@@ -101,6 +101,8 @@ GEM
       activesupport
       aws-sdk-dynamodb
     erubi (1.8.0)
+    fakeredis (0.7.0)
+      redis (>= 3.2, < 5.0)
     gems (1.1.1)
       json
     globalid (0.4.2)
@@ -247,6 +249,7 @@ DEPENDENCIES
   byebug
   capybara
   dynomite
+  fakeredis
   http
   jets
   launchy
