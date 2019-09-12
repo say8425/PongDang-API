@@ -18,7 +18,6 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'fakeredis', require: 'fakeredis/rspec'
   gem 'launchy'
   gem 'rspec'
 end
