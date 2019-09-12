@@ -22,7 +22,9 @@ class Degree
                             by: 'degree:*->measured_on',
                             limit: [0, 1],
                             order: 'desc')[0]
+    raise "Degree model is blank. #{degree}" if degree.blank?
+
     { measured_at: degree[0],
-      temperature: degree[1] }
+      temperature: degree[1].to_f }
   end
 end
