@@ -25,7 +25,7 @@ describe Degree do
         expect(Degree.latest[:measured_at]).to eql(latest_time.to_s)
       end
 
-      it 'get latest ones measured_at key' do
+      it 'get latest ones temperature key' do
         expect(Degree.latest).to have_key(:temperature)
       end
 
