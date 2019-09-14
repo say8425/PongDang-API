@@ -1,6 +1,6 @@
-class Degree
+class Degree < ApplicationRedis
   def initialize(temperature, measured_time)
-    @redis = $redis
+    # @redis = $redis
     @temperature = temperature
     @measured_time = measured_time
   end
