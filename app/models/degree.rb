@@ -1,6 +1,6 @@
 class Degree
   def initialize(temperature, measured_time)
-    @redis = Redis.new
+    @redis = $redis
     @temperature = temperature
     @measured_time = measured_time
   end
@@ -17,11 +17,11 @@ class Degree
   end
 
   def self.latest
-    degree = Redis.new.sort('degrees',
-                            get: %w(degree:*->measured_at degree:*->temperature),
-                            by: 'degree:*->measured_on',
-                            limit: [0, 1],
-                            order: 'desc')[0]
+    degree = $redis.sort('degrees',
+                         get: %w[degree:*->measured_at degree:*->temperature],
+                         by: 'degree:*->measured_on',
+                         limit: [0, 1],
+                         order: 'desc')[0]
     raise "Degree model is blank. #{degree}" if degree.blank?
 
     { measured_at: degree[0],
