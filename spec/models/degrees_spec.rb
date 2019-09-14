@@ -6,11 +6,14 @@ describe Degree do
     let(:latest_temp) { 20.2 }
 
     before do
-      Redis.new.flushdb
       Degree.new(25.1, Time.new(2023, 5, 5, 12, 42, 38, '+09:00')).save
       Degree.new(20.2, Time.new(2020, 9, 22, 11, 20, 2, '+09:00')).save
       Degree.new(latest_temp, latest_time).save
       Degree.new(20.2, Time.new(2019, 1, 2, 7, 1, 37, '+09:00')).save
+    end
+
+    after do
+      $redis.flushdb
     end
 
     context 'when many degrees stored' do
