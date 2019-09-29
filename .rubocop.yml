@@ -45,6 +45,11 @@ Style/FrozenStringLiteralComment:
 Style/GlobalVars:
   AllowedVariables:
     - $redis
+RSpec/DescribedClass:
+  Enabled: false
+Style/UnneededSort:
+  Exclude:
+    - app/models/degree.rb
 # Fix Rainbow Gem
 # https://github.com/rubocop-hq/rubocop/issues/6398#issuecomment-431901995
 inherit_mode:
