@@ -4,10 +4,10 @@ class Degree
     measured_at = measured_time.to_s
     $redis.with do |conn|
       conn.hmset("degree:#{measured_on}",
-                   'temperature', temperature,
-                   'measured_on', measured_on,
-                   'measured_at', measured_at,
-                   'created_at', Time.current.to_s)
+                 'temperature', temperature,
+                 'measured_on', measured_on,
+                 'measured_at', measured_at,
+                 'created_at', Time.current.to_s)
       conn.sadd('degrees', measured_on)
     end
   end
