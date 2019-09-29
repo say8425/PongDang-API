@@ -98,9 +98,6 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.5)
-    dynomite (1.2.2)
-      activesupport
-      aws-sdk-dynamodb
     erubi (1.8.0)
     gems (1.1.1)
       json
@@ -248,7 +245,6 @@ DEPENDENCIES
   byebug
   capybara
   connection_pool
-  dynomite
   http
   jets
   launchy
