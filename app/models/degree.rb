@@ -20,9 +20,11 @@ class Degree
                 limit: [0, 1],
                 order: 'desc')[0]
     end
-    raise "Degree model is blank. #{degree}" if degree.blank?
-
-    { measured_at: degree[0],
-      temperature: degree[1].to_f }
+    if degree.blank?
+      {}
+    else
+      { measured_at: degree[0],
+        temperature: degree[1].to_f }
+    end
   end
 end
