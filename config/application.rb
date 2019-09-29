@@ -59,8 +59,10 @@ Jets.application.configure do
   config.controllers.default_protect_from_forgery = false
 
   # Redis settings
-  # $redis = Redis.new(host: ENV['REDIS_HOST'],
-  #                    port: ENV['REDIS_PORT'],
-  #                    db: ENV['REDIS_DB'],
-  #                    password: ENV['REDIS_PSWD'])
+  $redis = ConnectionPool.new(size: 5, timeout: 5) do
+    Redis.new(host: ENV['REDIS_HOST'],
+              port: ENV['REDIS_PORT'],
+              db: ENV['REDIS_DB'],
+              password: ENV['REDIS_PASSWORD'])
+  end
 end

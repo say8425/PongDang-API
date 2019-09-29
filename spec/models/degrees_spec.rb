@@ -6,10 +6,10 @@ describe Degree do
     let(:latest_temp) { 20.2 }
 
     before do
-      Degree.new(25.1, Time.new(2023, 5, 5, 12, 42, 38, '+09:00')).save
-      Degree.new(20.2, Time.new(2020, 9, 22, 11, 20, 2, '+09:00')).save
-      Degree.new(latest_temp, latest_time).save
-      Degree.new(20.2, Time.new(2019, 1, 2, 7, 1, 37, '+09:00')).save
+      Degree.new.save(25.1, Time.new(2023, 5, 5, 12, 42, 38, '+09:00'))
+      Degree.new.save(20.2, Time.new(2020, 9, 22, 11, 20, 2, '+09:00'))
+      Degree.new.save(latest_temp, latest_time)
+      Degree.new.save(20.2, Time.new(2019, 1, 2, 7, 1, 37, '+09:00'))
     end
 
     after do

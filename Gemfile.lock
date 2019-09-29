@@ -92,6 +92,7 @@ GEM
       xpath (~> 3.2)
     cfnresponse (0.4.0)
     concurrent-ruby (1.1.5)
+    connection_pool (2.2.2)
     crass (1.0.4)
     diff-lcs (1.3)
     domain_name (0.5.20190701)
@@ -101,8 +102,6 @@ GEM
       activesupport
       aws-sdk-dynamodb
     erubi (1.8.0)
-    fakeredis (0.7.0)
-      redis (>= 3.2, < 5.0)
     gems (1.1.1)
       json
     globalid (0.4.2)
@@ -248,8 +247,8 @@ PLATFORMS
 DEPENDENCIES
   byebug
   capybara
+  connection_pool
   dynomite
-  fakeredis
   http
   jets
   launchy
