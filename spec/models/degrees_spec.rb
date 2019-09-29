@@ -12,8 +12,11 @@ describe Degree do
       Degree.new.save(20.2, Time.new(2019, 1, 2, 7, 1, 37, '+09:00'))
     end
 
-    after do
-      $redis.flushdb
+    after(:all) do
+      $redis.shutdown do |conn|
+        conn.flushdb
+        conn.quit
+      end
     end
 
     context 'when many degrees stored' do
