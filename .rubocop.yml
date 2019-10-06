@@ -29,6 +29,7 @@ Metrics/BlockLength:
   Exclude:
     - config/environments/*
     - config/application.rb
+    - spec/**/*
 Style/CommentAnnotation:
   Enabled: false
 Style/ClassAndModuleChildren:

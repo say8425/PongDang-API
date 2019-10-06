@@ -2,8 +2,12 @@ class DegreeJob < ApplicationJob
   rate '1 hour'
 
   def store
-    seoul_data = SeoulData.han_river_degree
-    degree = Degree.new(seoul_data[:temperature], seoul_data[:measured_at])
-    degree.save
+    seoul_data_api = SeoulDataApi.new
+
+    # TODO alert error message with telegram
+    return unless seoul_data_api.latest
+
+    degree = Degree.new
+    degree.save(seoul_data_api.temperature, seoul_data_api.measured_at)
   end
 end

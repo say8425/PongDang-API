@@ -12,7 +12,7 @@ describe Degree do
       Degree.new.save(20.2, Time.new(2019, 1, 2, 7, 1, 37, '+09:00'))
     end
 
-    after(:all) do
+    after :suite do
       $redis.shutdown do |conn|
         conn.flushdb
         conn.quit
