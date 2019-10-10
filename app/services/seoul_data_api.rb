@@ -3,10 +3,6 @@ require 'http'
 class SeoulDataApi
   attr_reader :temperature, :measured_at
 
-  def initialize
-    @uri = "http://openapi.seoul.go.kr:8088/#{ENV['SEOUL_DATA_KEY']}/json/WPOSInformationTime/1/5".freeze
-  end
-
   def latest
     response = connect_api
     data = response.parse['WPOSInformationTime']['row']
@@ -24,7 +20,6 @@ class SeoulDataApi
   private
 
   def connect_api
-    uri = "http://openapi.seoul.go.kr:8088/#{ENV['SEOUL_DATA_KEY']}/json/WPOSInformationTime/1/5".freeze
-    HTTP.get(uri)
+    HTTP.get("http://openapi.seoul.go.kr:8088/#{ENV['SEOUL_DATA_KEY']}/json/WPOSInformationTime/1/5")
   end
 end
