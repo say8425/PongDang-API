@@ -3,7 +3,7 @@ require 'http'
 class SeoulDataApi
   attr_reader :temperature, :measured_at
 
-  def latest
+  def measure
     data = response.parse['WPOSInformationTime']['row']
                    .find { |key| key['SITE_ID'] == '노량진' }
     if data.blank?

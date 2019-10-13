@@ -4,7 +4,7 @@ describe SeoulDataApi do
   subject(:seoul_data_api) { SeoulDataApi.new }
 
   describe '#latest' do
-    before { seoul_data_api.latest }
+    before { seoul_data_api.measure }
 
     context 'when han_river_degree succeeds' do
       it 'get temperature' do
