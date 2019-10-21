@@ -3,11 +3,9 @@ require 'http'
 class SeoulDataApi
   attr_reader :temperature, :measured_at
 
-  def latest
-    response = connect_api
+  def measure
     data = response.parse['WPOSInformationTime']['row']
                    .find { |key| key['SITE_ID'] == '노량진' }
-
     if data.blank?
       false
     else
@@ -19,7 +17,7 @@ class SeoulDataApi
 
   private
 
-  def connect_api
-    HTTP.get("http://openapi.seoul.go.kr:8088/#{ENV['SEOUL_DATA_KEY']}/json/WPOSInformationTime/1/5")
+  def response
+    @response ||= HTTP.get("http://openapi.seoul.go.kr:8088/#{ENV['SEOUL_DATA_KEY']}/json/WPOSInformationTime/1/5")
   end
 end

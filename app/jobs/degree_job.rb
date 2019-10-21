@@ -5,7 +5,7 @@ class DegreeJob < ApplicationJob
     seoul_data_api = SeoulDataApi.new
 
     # TODO alert error message with telegram
-    return unless seoul_data_api.latest
+    return unless seoul_data_api.measure
 
     degree = Degree.new
     degree.save(seoul_data_api.temperature, seoul_data_api.measured_at)
