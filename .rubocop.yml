@@ -1,4 +1,5 @@
 AllCops:
+  TargetRubyVersion: 2.5.3
   Exclude:
     - Rakefile
     - config.ru
@@ -28,6 +29,7 @@ Metrics/BlockLength:
   Exclude:
     - config/environments/*
     - config/application.rb
+    - spec/**/*
 Style/CommentAnnotation:
   Enabled: false
 Style/ClassAndModuleChildren:
@@ -41,6 +43,14 @@ Style/AsciiComments:
 # Freeze is so earlier thing
 Style/FrozenStringLiteralComment:
   Enabled: false
+Style/GlobalVars:
+  AllowedVariables:
+    - $redis
+RSpec/DescribedClass:
+  Enabled: false
+Style/UnneededSort:
+  Exclude:
+    - app/models/degree.rb
 # Fix Rainbow Gem
 # https://github.com/rubocop-hq/rubocop/issues/6398#issuecomment-431901995
 inherit_mode:

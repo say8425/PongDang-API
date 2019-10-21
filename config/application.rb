@@ -8,8 +8,7 @@ Jets.application.configure do
   # config.prewarm.public_ratio = 3 # default is 3
 
   # config.env_extra = 2 # can also set this with JETS_ENV_EXTRA
-  # config.extra_autoload_paths = []
-
+  config.autoload_paths = []
   # config.asset_base_url = 'https://cloudfront.domain.com/assets' # example
 
   # config.cors = true # for '*'' # defaults to false
@@ -58,4 +57,12 @@ Jets.application.configure do
   # testing suite output readable.
   # config.logger = Jets::Logger.new($strerr)
   config.controllers.default_protect_from_forgery = false
+
+  # Redis settings
+  $redis = ConnectionPool.new(size: 5, timeout: 5) do
+    Redis.new(host: ENV['REDIS_HOST'],
+              port: ENV['REDIS_PORT'],
+              db: ENV['REDIS_DB'],
+              password: ENV['REDIS_PASSWORD'])
+  end
 end
