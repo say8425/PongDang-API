@@ -6,13 +6,7 @@ defaults: &defaults
   working_directory: ~/PongDang-API
   docker:
     - image: circleci/ruby:2.5.3
-      environment:
-        RAILS_ENV: test
     - image: circleci/redis:latest
-      environment:
-        REDIS_DB: 11
-        REDIS_HOST: 127.0.01
-        REDIS_PORT: 6379
 version: 2
 jobs:
   checkout code:
