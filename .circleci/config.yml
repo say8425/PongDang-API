@@ -106,9 +106,11 @@ jobs:
           name: Install rsync
           command: sudo apt install rsync
       - run:
+          name: Create Directory for AWS Profile
+          command: mkdir ~/.aws
+      - run:
           name: Add AWS Profile Credentials
           command: |
-            mkdir ~/.aws
             echo -e "[default]\n\
                      aws_access_key_id=$AWS_ACCESS_KEY_ID\n\
                      aws_secret_access_key=$AWS_SECRET_ACCESS_KEY"\
@@ -116,7 +118,6 @@ jobs:
       - run:
           name: Add AWS Profile Config
           command: |
-            mkdir ~/.aws
             echo -e "[default]\n\
                      region=$AWS_DEFAULT_REGION\n\
                      output=json"\
