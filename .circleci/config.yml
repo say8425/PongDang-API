@@ -106,22 +106,48 @@ jobs:
           name: Install rsync
           command: sudo apt install rsync
       - run:
-          name: Create Directory for AWS Profile
-          command: mkdir ~/.aws
-      - run:
-          name: Add AWS Profile Credentials
+          name:  Install AWS CLI
           command: |
-            echo -e "[default]\n\
-                     aws_access_key_id=$AWS_ACCESS_KEY_ID\n\
-                     aws_secret_access_key=$AWS_SECRET_ACCESS_KEY"\
-                     > ~/.aws/credentials
+            if which aws > /dev/null; then
+              echo "The AWS CLI is already installed. Skipping."
+              exit 0
+            fi
+            export PIP=$(which pip pip3 | head -1)
+            if [[ -n $PIP ]]; then
+              if which sudo > /dev/null; then
+                sudo $PIP install awscli --upgrade
+              else
+                # This installs the AWS CLI to ~/.local/bin. Make sure that ~/.local/bin is in your $PATH.
+                $PIP install awscli --upgrade --user
+              fi
+            elif [[ $(which unzip curl | wc -l) -eq 2 ]]; then
+              cd
+              curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+              unzip awscli-bundle.zip
+              if which sudo > /dev/null; then
+                sudo ~/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+              else
+                # This installs the AWS CLI to the default location (~/.local/lib/aws) and create a symbolic link (symlink) at ~/bin/aws. Make sure that ~/bin is in your $PATH.
+                awscli-bundle/install -b ~/bin/aws
+              fi
+              rm -rf awscli-bundle*
+              cd -
+            else
+              echo "Unable to install AWS CLI. Please install pip."
+              exit 1
+            fi
       - run:
-          name: Add AWS Profile Config
-          command: |
-            echo -e "[default]\n\
-                     region=$AWS_DEFAULT_REGION\n\
-                     output=json"\
-                     > ~/.aws/config
+          name: Set AWS Access Key ID
+          command: aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      - run:
+          name: Set AWS SECRET ACCESS KEY
+          command: aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+      - run:
+          name: Set AWS Region
+          command: aws configure set region $AWS_DEFAULT_REGION
+      - run:
+          name: Set AWS Outpur
+          command: aws configure set output json
       - run:
           name: Set environment values for redis production
           command: |
