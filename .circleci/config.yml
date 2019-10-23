@@ -55,6 +55,12 @@ jobs:
           name: Use packages
           command: bundle --path vendor/bundle
       - run:
+          name: Set environment values for redis test
+          command: |
+            export REDIS_DB=$TEST_REDIS_DB
+            export REDIS_HOST=$TEST_REDIS_HOST
+            export REDIS_PORT=$TEST_REDIS_PORT
+      - run:
           name: Run tests
           command: DISABLE_SPRING=true bundle exec rspec
           when: always
@@ -116,6 +122,13 @@ jobs:
                      region=$AWS_DEFAULT_REGION\n\
                      output=json"\
                      > ~/.aws/config
+      - run:
+          name: Set environment values for redis production
+          command: |
+            export REDIS_DB=$PRODUCTION_REDIS_DB
+            export REDIS_HOST=$PRODUCTION_REDIS_HOST
+            export REDIS_PORT=$PRODUCTION_REDIS_PORT
+            export REDIS_PASSWORD=$PRODUCTION_REDIS_PASSWORD
       - run:
           name: Deploy
           command: bundle exec jets deploy production
