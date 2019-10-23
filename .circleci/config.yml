@@ -106,10 +106,21 @@ jobs:
           name: Install rsync
           command: sudo apt install rsync
       - run:
-          name: Add AWS Profile
+          name: Add AWS Profile Credentials
           command: |
             mkdir ~/.aws
-            echo -e "[default]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY\n" > ~/.aws/credentials
+            echo -e "[default]\n\
+                     aws_access_key_id=$AWS_ACCESS_KEY_ID\n\
+                     aws_secret_access_key=$AWS_SECRET_ACCESS_KEY"\
+                     > ~/.aws/credentials
+      - run:
+          name: Add AWS Profile Config
+          command: |
+            mkdir ~/.aws
+            echo -e "[default]\n\
+                     region=$AWS_DEFAULT_REGION\n\
+                     output=json"\
+                     > ~/.aws/config
       - run:
           name: Deploy
           command: bundle exec jets deploy production
