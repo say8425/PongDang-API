@@ -5,6 +5,8 @@ on: [push]
 jobs:
   rubocop:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
     steps:
       - uses: actions/checkout@v1
       - name: Set up Ruby 2.5.x
