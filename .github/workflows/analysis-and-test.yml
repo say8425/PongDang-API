@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Set up Ruby 2.5.3
+      - name: Set up Ruby 2.5.x
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.5.3
+          ruby-version: 2.5.x
       - name: Run RuboCop
         run: |
           gem install bundler
@@ -23,10 +23,10 @@ jobs:
       - name: Install Hunspell
         run: |
           sudo apt-get install hunspell
-      - name: Set up Ruby 2.5.3
+      - name: Set up Ruby 2.5.x
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.5.3
+          ruby-version: 2.5.x
       - name: Run Forspell
         run: |
           gem install forspell
@@ -38,10 +38,10 @@ jobs:
         with:
           repository: say8425/PongDang-API-ENV
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set up Ruby 2.5.3
+      - name: Set up Ruby 2.5.x
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.5.3
+          ruby-version: 2.5.x
       - uses: zhulik/redis-action@v1.0.0
         with:
           redis version: 5
