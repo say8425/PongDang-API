@@ -31,8 +31,8 @@ jobs:
           ruby-version: 2.5.x
       - name: Run Forspell
         run: |
-          gem install forspell
-          bundle exec forspell
+          gem install forspell -​-no-document
+          forspell
   Rspec:
     runs-on: ubuntu-latest
     steps:
