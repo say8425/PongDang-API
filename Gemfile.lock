@@ -80,6 +80,7 @@ GEM
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.1.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
+    backports (3.15.0)
     builder (3.2.3)
     byebug (11.0.1)
     capybara (3.29.0)
@@ -102,15 +103,31 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.5)
+    equatable (0.6.1)
     erubi (1.9.0)
     ffi (1.11.1)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    ffi-hunspell (0.5.0)
+      ffi (~> 1.0)
+    forspell (0.0.8)
+      backports (~> 3.0)
+      ffi-hunspell
+      highline
+      kramdown (~> 2.0)
+      kramdown-parser-gfm (~> 1.0)
+      parser
+      pastel
+      ruby-progressbar
+      sanitize (~> 5.0)
+      slop (~> 4.6)
+      yard
     gems (1.2.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (3.6.0)
+    highline (2.0.3)
     http (4.2.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -166,6 +183,8 @@ GEM
     jmespath (1.4.0)
     json (2.2.0)
     kramdown (2.1.0)
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     loofah (2.3.1)
@@ -182,9 +201,14 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
+    nokogumbo (2.0.1)
+      nokogiri (~> 1.8, >= 1.8.4)
     parallel (1.18.0)
     parser (2.6.5.0)
       ast (~> 2.4.0)
+    pastel (0.7.3)
+      equatable (~> 0.6)
+      tty-color (~> 0.5)
     public_suffix (4.0.1)
     puma (4.2.1)
       nio4r (~> 2.0)
@@ -232,11 +256,17 @@ GEM
     rubocop-rspec (1.36.0)
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
+    sanitize (5.1.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.8.0)
+      nokogumbo (~> 2.0)
     shotgun (0.9.2)
       rack (>= 1.0)
+    slop (4.7.0)
     text-table (1.2.4)
     thor (0.20.3)
     thread_safe (0.3.6)
+    tty-color (0.5.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unf (0.1.4)
@@ -245,6 +275,7 @@ GEM
     unicode-display_width (1.6.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yard (0.9.20)
     zeitwerk (2.2.0)
 
 PLATFORMS
@@ -254,6 +285,7 @@ DEPENDENCIES
   byebug
   capybara
   connection_pool
+  forspell
   http
   jets
   launchy
