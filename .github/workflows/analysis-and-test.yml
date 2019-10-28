@@ -8,7 +8,8 @@ jobs:
     env:
       RAILS_ENV: test
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout code
+        uses: actions/checkout@v1
       - name: Set up Ruby 2.5.x
         uses: actions/setup-ruby@v1
         with:
@@ -21,7 +22,8 @@ jobs:
   forspell:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout code
+        uses: actions/checkout@v1
       - name: Install Hunspell
         run: |
           sudo apt-get install hunspell
@@ -36,7 +38,8 @@ jobs:
   Rspec:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout code with ENV
+        uses: actions/checkout@v1
         with:
           repository: say8425/PongDang-API-ENV
           token: ${{ secrets.GITHUB_TOKEN }}
