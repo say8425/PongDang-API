@@ -47,7 +47,8 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.5.x
-      - uses: zhulik/redis-action@v1.0.0
+      - name: Use Redis Action
+        uses: zhulik/redis-action@v1.0.0
         with:
           redis version: 5
       - name: Run Rspec
