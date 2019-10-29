@@ -1,6 +1,6 @@
 # Jets Project
 
-https://github.com/say8425/pongdang-api/workflows/analysis-and-test/badge.svg
+![GitHub Actions Test status | say8425/pongdang-api](https://github.com/say8425/pongdang-api/workflows/analysis-and-test/badge.svg)
 
 This README would normally document whatever steps are necessary to get the application up and running.
 
