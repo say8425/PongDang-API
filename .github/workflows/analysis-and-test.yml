@@ -38,11 +38,11 @@ jobs:
   Rspec:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code with ENV
+      - name: Checkout ENV Repository
         uses: actions/checkout@v1
         with:
           repository: say8425/PongDang-API-ENV
-          token: ${{ secrets.GitHub_CHECKOUT_PAT }}
+          token: ${{ secrets.GITHUB_CHECKOUT_PAT }}
       - name: Set up Ruby 2.5.x
         uses: actions/setup-ruby@v1
         with:
