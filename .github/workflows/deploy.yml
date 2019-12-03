@@ -70,6 +70,7 @@ jobs:
     needs: [rubocop, forspell, Rspec]
     env:
       RAILS_ENV: production
+      JETS_AGREE: yes
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
