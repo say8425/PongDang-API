@@ -1,0 +1,100 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Set up Ruby 2.5.x
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.5.x
+      - name: Run RuboCop
+        run: |
+          gem install bundler --no-document
+          bundle install --jobs 4 --retry 3
+          bundle exec rubocop
+  forspell:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Install Hunspell
+        run: |
+          sudo apt-get install hunspell
+      - name: Set up Ruby 2.5.x
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.5.x
+      - name: Run Forspell
+        run: |
+          gem install forspell --no-document
+          forspell
+  Rspec:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Store ENV from AWS SecretManager
+        uses: say8425/aws-secrets-manager-actions@v0.10.0
+        with:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_SECRET_MANAGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SECRET_MANAGER }}
+          AWS_DEFAULT_REGION: ap-northeast-1
+          SECRET_NAME: pongdang-env-test
+      - name: Set up Ruby 2.5.x
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.5.x
+      - name: Use Redis Action
+        uses: zhulik/redis-action@v1.0.0
+        with:
+          redis version: 5
+      - name: Run Rspec
+        run: |
+          gem install bundler --no-document
+          bundle install --jobs 4 --retry 3
+          bundle exec rspec
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: [rubocop, forspell, Rspec]
+    env:
+      RAILS_ENV: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Store ENV from AWS SecretManager
+        uses: say8425/aws-secrets-manager-actions@v0.10.0
+        with:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_SECRET_MANAGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SECRET_MANAGER }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          SECRET_NAME: pongdang-env-production
+      - name: Set up Ruby 2.5.x
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.5.x
+      - name: Create AWS Profile for Deploying
+        uses: actions/aws/cli@master
+        with:
+          args:
+            - configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID_JETS }}
+            - configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY_JETS }}
+            - configure set region ${{ secrets.AWS_DEFAULT_REGION }}
+            - configure set output json
+      - name: Bundle Install
+        run: |
+          gem install bundler --no-document
+          bundle install --jobs 4 --retry 3
+      - name: Deploy
+        run: bundle exec jets deploy production
