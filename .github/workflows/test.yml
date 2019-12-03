@@ -50,7 +50,7 @@ jobs:
         with:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_SECRET_MANAGER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SECRET_MANAGER }}
-          AWS_DEFAULT_REGION: ap-northeast-1
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           SECRET_NAME: pongdang-env-test
       - name: Set up Ruby 2.5.x
         uses: actions/setup-ruby@v1
