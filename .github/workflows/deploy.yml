@@ -85,13 +85,11 @@ jobs:
         with:
           ruby-version: 2.5.x
       - name: Create AWS Profile for Deploying
-        uses: actions/aws/cli@master
-        with:
-          args:
-            - configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID_JETS }}
-            - configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY_JETS }}
-            - configure set region ${{ secrets.AWS_DEFAULT_REGION }}
-            - configure set output json
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_JETS }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_JETS }}
+            aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Bundle Install
         run: |
           gem install bundler --no-document
