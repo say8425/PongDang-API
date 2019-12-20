@@ -46,7 +46,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
       - name: Store ENV from AWS SecretManager
-        uses: brunocascio/aws-secrets-manager-actions@1f19c6d
+        uses: say8425/aws-secrets-manager-actions@v1
         with:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_SECRET_MANAGER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SECRET_MANAGER }}
@@ -75,7 +75,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
       - name: Store ENV from AWS SecretManager
-        uses: say8425/aws-secrets-manager-actions@v0.10.0
+        uses: brunocascio/aws-secrets-manager-actions@1f19c6d
         with:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_SECRET_MANAGER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SECRET_MANAGER }}
