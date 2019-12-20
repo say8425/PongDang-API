@@ -81,6 +81,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SECRET_MANAGER }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           SECRET_NAME: pongdang-env-production
+          OUTPUT_PATH: '.env'
       - name: Set up Ruby 2.5.x
         uses: actions/setup-ruby@v1
         with:
