@@ -9,6 +9,8 @@ jobs:
     env:
       RAILS_ENV: test
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
       - name: Cache Bundler
         uses: actions/cache@v1
         with:
