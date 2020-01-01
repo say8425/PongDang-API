@@ -60,11 +60,13 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.5.x
-      - name: Run Forspell
+      - name: Bundler Install
         run: |
           gem install bundler --no-document
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
+      - name: Run Forspell
+        run: |
           forspell
   brakeman:
     runs-on: ubuntu-latest
@@ -78,11 +80,13 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.5.x
-      - name: Run Brakeman
+      - name: Bundler Install
         run: |
           gem install bundler --no-document
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
+      - name: Run Brakeman
+        run: |
           bundle exec brakeman
   Rspec:
     runs-on: ubuntu-latest
@@ -107,12 +111,14 @@ jobs:
         uses: zhulik/redis-action@v1.0.0
         with:
           redis version: 5
-      - name: Run Rspec
+      - name: Bundler Install
         run: |
           gem install bundler --no-document
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-          bundle exec rspec
+      - name: Run Rspec
+        run: |
+          rspec
   Deploy:
     runs-on: ubuntu-latest
     needs: [rubocop, forspell, Rspec]
@@ -140,7 +146,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_JETS }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_JETS }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-      - name: Bundle Install
+      - name: Bundler Install
         run: |
           gem install bundler --no-document
           bundle config path vendor/bundle
