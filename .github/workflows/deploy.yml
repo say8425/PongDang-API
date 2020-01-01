@@ -39,12 +39,21 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.5.x
-      - name: Run RuboCop
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Bundler Install
         run: |
           gem install bundler --no-document
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-          bundle exec rubocop
+      - name: Run RuboCop
+        run: |
+          rubocop
   forspell:
     runs-on: ubuntu-latest
     needs: cache_bundler
@@ -60,6 +69,13 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.5.x
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
       - name: Bundler Install
         run: |
           gem install bundler --no-document
@@ -80,6 +96,13 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.5.x
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
       - name: Bundler Install
         run: |
           gem install bundler --no-document
@@ -87,7 +110,7 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Run Brakeman
         run: |
-          bundle exec brakeman
+          brakeman
   Rspec:
     runs-on: ubuntu-latest
     needs: cache_bundler
@@ -111,6 +134,13 @@ jobs:
         uses: zhulik/redis-action@v1.0.0
         with:
           redis version: 5
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
       - name: Bundler Install
         run: |
           gem install bundler --no-document
@@ -146,10 +176,17 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_JETS }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_JETS }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
       - name: Bundler Install
         run: |
           gem install bundler --no-document
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: Deploy
-        run: bundle exec jets deploy production
+        run: jets deploy production
