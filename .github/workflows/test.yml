@@ -6,21 +6,21 @@ on:
 jobs:
   cache_bundler:
     runs-on: ubuntu-latest
-      env:
-        RAILS_ENV: test
-      steps:
-        - name: Cache Bundler
-          uses: actions/cache@v1
-          with:
-            path: vendor/bundle
-            key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-            restore-keys: |
-              ${{ runner.os }}-gem-
-        - name: Bundle install
-          run: |
-            gem install bundler --no-document
-            bundle config path vendor/bundle
-            bundle install --jobs 4 --retry 3
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Bundle install
+        run: |
+          gem install bundler --no-document
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
   rubocop:
     runs-on: ubuntu-latest
     needs: cache_bundler
