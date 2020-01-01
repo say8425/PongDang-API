@@ -52,8 +52,7 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: Run RuboCop
-        run: |
-          rubocop
+        run: rubocop
   forspell:
     runs-on: ubuntu-latest
     needs: cache_bundler
@@ -82,8 +81,7 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: Run Forspell
-        run: |
-          forspell
+        run: forspell
   brakeman:
     runs-on: ubuntu-latest
     needs: cache_bundler
@@ -109,8 +107,7 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: Run Brakeman
-        run: |
-          brakeman
+        run: brakeman
   Rspec:
     runs-on: ubuntu-latest
     needs: cache_bundler
@@ -147,8 +144,7 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: Run Rspec
-        run: |
-          rspec
+        run: rspec
   Deploy:
     runs-on: ubuntu-latest
     needs: [rubocop, forspell, Rspec]
