@@ -38,6 +38,22 @@ jobs:
         run: |
           gem install forspell --no-document
           forspell
+  brakeman:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Set up Ruby 2.5.x
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.5.x
+      - name: Run Brakeman
+        run: |
+          gem install bundler --no-document
+          bundle install --jobs 4 --retry 3
+          bundle exec brakeman
   Rspec:
     runs-on: ubuntu-latest
     env:
