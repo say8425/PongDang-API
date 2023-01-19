@@ -96,7 +96,7 @@ GEM
       memoist
       rainbow
     cfnresponse (0.4.0)
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.10)
     connection_pool (2.2.2)
     crass (1.0.5)
     diff-lcs (1.3)
@@ -124,8 +124,8 @@ GEM
       slop (~> 4.6)
       yard
     gems (1.2.0)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (1.0.1)
+      activesupport (>= 5.0)
     hashie (3.6.0)
     highline (2.0.3)
     http (4.2.0)
@@ -138,7 +138,7 @@ GEM
     http-form_data (2.1.1)
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
-    i18n (1.7.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.3)
     jets (2.3.4)
@@ -197,7 +197,7 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.12.2)
+    minitest (5.17.0)
     nio4r (2.5.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
@@ -267,7 +267,7 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tty-color (0.5.0)
-    tzinfo (1.2.5)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
@@ -276,7 +276,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.20)
-    zeitwerk (2.2.0)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
