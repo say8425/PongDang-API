@@ -1,58 +1,50 @@
+---
 AllCops:
-  TargetRubyVersion: 2.5.3
   Exclude:
     - Rakefile
     - config.ru
     - db/schema.rb
     - bin/*
+  TargetRubyVersion: 2.5.3
 require:
   - rubocop-performance
   - rubocop-rspec
-Metrics/LineLength:
-  Max: 120
 Documentation:
   Enabled: false
-# The guiding principle of classes is SRP, SRP can't be accurately measured by LoC
-Metrics/ClassLength:
-  Max: 1500
-  Exclude:
-    - db/migrate/*.rb
-# Too short methods lead to extraction of single-use methods, which can make
-# the code easier to read (by naming things), but can also clutter the class
-Metrics/MethodLength:
-  Max: 20
-  Exclude:
-    - db/migrate/*.rb
-# Bootstrap config block is too loooooong.
-# Environment and application config are essentially long.
+Layout/LineLength:
+  Max: 120
 Metrics/BlockLength:
   Exclude:
     - config/environments/*
     - config/application.rb
     - spec/**/*
-Style/CommentAnnotation:
+Metrics/ClassLength:
+  Exclude:
+    - db/migrate/*.rb
+  Max: 1500
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/*.rb
+  Max: 20
+Style/AsciiComments:
   Enabled: false
 Style/ClassAndModuleChildren:
   Exclude:
     - test/test_helper.rb
-# We do not need to support Ruby 1.9, so this is good to use.
-Style/SymbolArray:
-  Enabled: true
-Style/AsciiComments:
+Style/CommentAnnotation:
   Enabled: false
-# Freeze is so earlier thing
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/GlobalVars:
   AllowedVariables:
     - $redis
-RSpec/DescribedClass:
-  Enabled: false
-Style/UnneededSort:
+Style/RedundantSort:
   Exclude:
     - app/models/degree.rb
-# Fix Rainbow Gem
-# https://github.com/rubocop-hq/rubocop/issues/6398#issuecomment-431901995
+Style/SymbolArray:
+  Enabled: true
 inherit_mode:
   merge:
     - Exclude
+RSpec/DescribedClass:
+  Enabled: false

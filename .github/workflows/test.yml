@@ -4,7 +4,7 @@ on:
     branches-ignore:
       - master
 jobs:
-  rubocop:
+  cache_bundler:
     runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
@@ -15,31 +15,102 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.5.x
-      - name: Run RuboCop
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Bundle install
         run: |
           gem install bundler --no-document
+          bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-          bundle exec rubocop
-  forspell:
+  rubocop:
     runs-on: ubuntu-latest
+    needs: cache_bundler
     env:
       RAILS_ENV: test
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
+      - name: Set up Ruby 2.5.x
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.5.x
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Bundler Install
+        run: |
+          gem install bundler --no-document
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Run RuboCop
+        run: bundle exec rubocop
+  forspell:
+    runs-on: ubuntu-latest
+    needs: cache_bundler
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Set up Ruby 2.5.x
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.5.x
       - name: Install Hunspell
         run: |
           sudo apt-get install hunspell
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Bundler Install
+        run: |
+          gem install bundler --no-document
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Run Forspell
+        run: bundle exec forspell
+  brakeman:
+    runs-on: ubuntu-latest
+    needs: cache_bundler
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
       - name: Set up Ruby 2.5.x
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.5.x
-      - name: Run Forspell
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Bundler Install
         run: |
-          gem install forspell --no-document
-          forspell
+          gem install bundler --no-document
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Run Brakeman
+        run: bundle exec brakeman
   Rspec:
     runs-on: ubuntu-latest
+    needs: cache_bundler
     env:
       RAILS_ENV: test
     steps:
@@ -60,8 +131,17 @@ jobs:
         uses: zhulik/redis-action@v1.0.0
         with:
           redis version: 5
-      - name: Run Rspec
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Bundler Install
         run: |
           gem install bundler --no-document
+          bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-          bundle exec rspec
+      - name: Run Rspec
+        run: bundle exec rspec
